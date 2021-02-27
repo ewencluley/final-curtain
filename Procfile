@@ -1,0 +1,1 @@
+web: gunicorn finalcurtain.wsgi --log-file -

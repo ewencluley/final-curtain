@@ -13,7 +13,7 @@ This site uses The Movie DB API (https://developers.themoviedb.org) to get film/
 ## How-to
 ### Run
 ```shell script
-python manage.py runserver
+gunicorn finalcurtain.wsgi --log-file -
 ```
 ### Run Unit Tests
 ```shell script
