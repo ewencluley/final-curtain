@@ -1,3 +1,8 @@
-from django.db import models
+class SearchResult(dict):
+    id: int
+    media_type: str
 
-# Create your models here.
+    def __init__(self, id, media_type):
+        dict.__init__(self, id=id, media_type=media_type)
+
+

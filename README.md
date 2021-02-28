@@ -12,8 +12,13 @@ This site uses The Movie DB API (https://developers.themoviedb.org) to get film/
 
 ## How-to
 ### Run
+First you will need to set the TMDB_API_KEY environment variable to your TMDB api key.
 ```shell script
-gunicorn finalcurtain.wsgi --log-file -
+python manage.py runserver
+```
+or
+```shell script
+gunicorn finalcurtain.wsgi
 ```
 ### Run Unit Tests
 ```shell script

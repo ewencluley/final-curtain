@@ -27,7 +27,8 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','localhost,127.0.0.1').split(',')
 
-
+TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
+TMDB_API_BASE_URL = os.environ.get('TMDB_API_BASE_URL', 'https://api.themoviedb.org/3')
 # Application definition
 
 INSTALLED_APPS = [
