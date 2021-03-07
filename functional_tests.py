@@ -19,7 +19,10 @@ class HomepageTests(unittest.TestCase):
         search_field = self.browser.find_element_by_id('search')
         search_field.send_keys("The Bill")
         search_field.send_keys(Keys.ENTER)
-        time.sleep(1)
-        current_url: str = self.browser.current_url
-        self.assertRegex(current_url, r"^http://\w+:\d+/search.*$")
+        results = []
+        while len(results) == 0:
+            time.sleep(0.1)
+            results = self.browser.find_element_by_id('results').find_elements_by_tag_name('li')
+        for result in results:
+            self.assertRegex(result.get_attribute('href'), r'^/cast/\d+$')
 
