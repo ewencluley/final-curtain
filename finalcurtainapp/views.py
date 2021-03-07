@@ -9,6 +9,6 @@ def home_page(request):
     return render(request, 'home.html')
 
 
-def search_endpoint(request):
+def search_page(request):
     results = tmdb.search(request.GET.get('q'))
-    return JsonResponse(results, safe=False)
+    return render(request=request, template_name='search.html', context={'results': results})

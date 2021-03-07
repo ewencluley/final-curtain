@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol id="results" class="list-group mt-3">
+    {% for result in results %}
+        <a class="list-group-item" id="{{result.id}}" href="/{{ result.media_type }}/{{result.id}}/cast">
+            <div class="row">
+                <img class="col-1" src="https://www.themoviedb.org/t/p/w188_and_h282_bestv2/{{ result.img }}"/>
+                <div class="h2 col-11">{{result.name}}</div>
+            </div>
+        </a>
+    {%  endfor %}
+</ol>
+{% endblock %}

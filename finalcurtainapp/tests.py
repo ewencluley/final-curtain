@@ -30,14 +30,17 @@ class TmdbTests(TestCase):
 
     def test_search_with_results(self, requests_mock):
         requests_mock.get.return_value.status_code = 200
-        requests_mock.get.return_value.json.return_value = {'results': [{'id': 1, 'media_type': 'tv'}]}
+        requests_mock.get.return_value.json.return_value = {
+            'results': [{'id': 1, 'media_type': 'tv', 'name': 'The Bill', 'poster_path': 'bill.jpg'},
+                        {'id': 2, 'media_type': 'movie', 'title': 'Life on Mars', 'poster_path': 'life.jpg'},
+                        {'id': 3, 'media_type': 'person', 'name': 'David Bowie', 'profile_path': 'bowie.jpg'}]}
 
         results = tmdb.search('The Bill')
         requests_mock.get.assert_called_with(
             'https://api.themoviedb.org/3/search/multi',
             params={'query': 'The Bill', 'api_key': 'mykey', 'language': 'en-US', 'page': 1, 'include_adult': False}
         )
-        self.assertEqual(results, [SearchResult(1, 'tv')])
+        self.assertEqual(results, [SearchResult(1, 'tv', 'The Bill', 'bill.jpg'), SearchResult(2, 'movie', 'Life on Mars', 'life.jpg'), SearchResult(3, 'person', 'David Bowie', 'bowie.jpg')])
 
     def test_search_with_no_results(self, requests_mock):
         requests_mock.get.return_value.status_code = 200
