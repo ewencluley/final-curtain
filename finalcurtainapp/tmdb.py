@@ -29,6 +29,8 @@ def search(query):
     }
     api_url_base = settings.TMDB_API_BASE_URL
     response = requests.get(f'{api_url_base}/search/multi', params=params)
+    if response.status_code != 200:
+        print(f"response: {response}")
     return [SearchResult(i['id'], i['media_type'], extract_name(i), extract_img(i)) for i in response.json()['results']]
 
 
