@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from finalcurtainapp.views import home_page, search_page
+from finalcurtainapp.views import home_page, search_page, cast_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page),
     path('search', search_page),
+    path('<str:media_type>/<int:id>/cast', cast_page),
 ]

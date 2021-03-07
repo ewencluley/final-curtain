@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol id="results" class="list-group mt-3">
+    {% for result in results %}
+        <div class="list-group-item" id="{{result.id}}">
+            <div class="row col-12">{{result.name}}</div>
+            <div class="row col-12">{{ result.character }}</div>
+        </div>
+    {%  endfor %}
+</ol>
+{% endblock %}
