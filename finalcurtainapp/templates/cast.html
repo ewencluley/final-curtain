@@ -3,10 +3,12 @@
 {% block content %}
 <ol id="results" class="list-group mt-3">
     {% for result in results %}
-        <div class="list-group-item" id="{{result.id}}">
+        <li class="list-group-item" id="{{result.id}}">
             <div class="row col-12">{{result.name}}</div>
             <div class="row col-12">{{ result.character }}</div>
-        </div>
+            <div class="row col-12">{{ result.birthday }}</div>
+            <div class="row col-12">{{ result.deathday }}</div>
+        </li>
     {%  endfor %}
 </ol>
 {% endblock %}

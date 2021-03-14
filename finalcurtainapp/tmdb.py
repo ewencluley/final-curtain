@@ -1,3 +1,5 @@
+import asyncio
+import aiohttp
 import requests
 from django.conf import settings
 
@@ -16,6 +18,7 @@ def extract_character(item: dict):
     if 'roles' in item.keys():
         return ', '.join([r['character'] for r in item.get('roles')])
     return item.get('character')
+
 
 def search(query):
     if not query:
@@ -40,5 +43,30 @@ def get_cast(id, media_type):
         'language': 'en-US'
     }
     endpoint = 'aggregate_credits' if media_type == 'tv' else 'credits'
-    response = requests.get(f'{settings.TMDB_API_BASE_URL}/{media_type}/{id}/{endpoint}', params=params)
-    return [CastResult(i['id'], extract_character(i), i['name']) for i in response.json()['cast']]
+
+    credits_json = requests.get(f'{settings.TMDB_API_BASE_URL}/{media_type}/{id}/{endpoint}', params).json()
+    cast = [CastResult(cast['id'], extract_character(cast), cast['name']) for cast in credits_json['cast']]
+    details = asyncio.run(get_cast_details(cast[:20]))
+
+    for c in cast:
+        try:
+            (birthday, deathday) = details.get(c['id'])
+            c.add_detail(birthday, deathday)
+        except TypeError:
+            pass
+    return cast
+
+
+async def get_cast_details(cast):
+    return {d[0]: d[1:] for d in await asyncio.gather(*[get_cast_member_detail(cast_id['id']) for cast_id in cast])}
+
+
+async def get_cast_member_detail(id):
+    async with aiohttp.ClientSession() as session:
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'language': 'en-US'
+        }
+        async with session.get(f'{settings.TMDB_API_BASE_URL}/person/{id}', params=params) as resp:
+            response_body = await resp.json()
+            return (id, response_body['birthday'], response_body['deathday'])
