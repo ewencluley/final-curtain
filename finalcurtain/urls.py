@@ -13,12 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
 from finalcurtainapp.views import home_page, search_page, cast_page
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', home_page),
     path('search', search_page),
     path('<str:media_type>/<int:id>/cast', cast_page),
