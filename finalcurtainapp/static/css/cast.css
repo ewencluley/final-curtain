@@ -1,0 +1,3 @@
+img[src$="dead.svg"], img[src$="alive.svg"], img[src$="unknown.svg"] {
+    width: 30px;
+}

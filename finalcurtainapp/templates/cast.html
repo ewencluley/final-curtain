@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
 
+{%  block css %}
+<link href="/static/css/cast.css" rel="stylesheet" />
+{% endblock %}
+
+{% block navbar-search %}
+{%  include "navbar-search-box.html" %}
+{% endblock %}
+
 {% block content %}
-<ol id="results" class="list-group mt-3">
+    <table class="table table-bordered table-hover table-striped" id="results">
     {% for result in results %}
-        <li class="list-group-item" id="{{result.id}}">
-            <div class="row col-12">{{result.name}}</div>
-            <div class="row col-12">{{ result.character }}</div>
-            <div class="row col-12">{{ result.birthday }}</div>
-            <div class="row col-12">{{ result.deathday }}</div>
-        </li>
+        <tr id="{{result.id}}">
+            <td>{{result.name}} (as {{ result.character }})</td>
+            <td>
+                {%  if result.deathday %}
+                    <img src="/static/img/dead.svg" alt="Born:{{ result.birthday }}, Died:{{ result.deathday }}" />
+                {%  elif result.birthday %}
+                    <img src="/static/img/alive.svg" alt="Born: {{ result.birthday }}" />
+                {% elif not result.has_detail %}
+                    Not Loaded
+                {% else %}
+                    <img src="/static/img/unknown.svg" alt="Unknown" />
+                {% endif %}
+            </td>
+        </tr>
     {%  endfor %}
-</ol>
+    </table>
 {% endblock %}

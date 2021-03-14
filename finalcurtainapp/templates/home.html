@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form class="mt-3" id="searchForm" action="search" method="get">
-    <div class="mb-3">
-        <label for="search" class="form-label">Search</label>
-        <input type="search" class="form-control" id="search" aria-describedby="searchHelp" name="q">
-        <div id="searchHelp" class="form-text">Find films, shows, actors or characters.</div>
+    <form class="mt-3 row" id="searchForm" action="search" method="get">
+        <div class="mb-3 input-group">
+            <div class="form-floating">
+                <input type="search" class="form-control" id="search" name="q" placeholder="Search films, tv & people">
+                <label for="search" class="form-label">Search films, tv & people</label>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            Final Curtain lets you find out which cast members of your favourite film or tv show are still alive and for whom the final curtain has fallen.
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<ol id="results" class="list-group mt-3">
-
-</ol>
+    <div class="row mt-3">
+        <div class="col-12">
+            <h4>
+                Limitations and TODO
+            </h4>
+            <ul>
+                <li>Only returns dead or alive status for first 20 cast members</li>
+                <li>TODO: add async fetching of remaining cast details</li>
+                <li>TODO: Fix some UI issues (especially on mobile)</li>
+                <li>TODO: Make it look nice</li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}
