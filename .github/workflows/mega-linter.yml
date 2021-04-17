@@ -41,6 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ENABLE: PYTHON
           REVIEWDOG_REPORTER: true
+          DEFAULT_BRANCH: main
 
       # Upload Mega-Linter artifacts
       - name: Archive production artifacts
