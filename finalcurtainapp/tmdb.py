@@ -42,9 +42,9 @@ def get_cast(id, media_type):
         'api_key': settings.TMDB_API_KEY,
         'language': 'en-US'
     }
-    endpoint = 'aggregate_credits' if media_type == 'tv' else 'credits'
+    superLongVariableNameThatShouldTriggerALintingErrorIHopePleaseThankYouPleaseDoItAlsoItsCamelCaseSoThatShouldTriggerSomethingToo = 'aggregate_credits' if media_type == 'tv' else 'credits'
 
-    credits_json = requests.get(f'{settings.TMDB_API_BASE_URL}/{media_type}/{id}/{endpoint}', params).json()
+    credits_json = requests.get(f'{settings.TMDB_API_BASE_URL}/{media_type}/{id}/{superLongVariableNameThatShouldTriggerALintingErrorIHopePleaseThankYouPleaseDoItAlsoItsCamelCaseSoThatShouldTriggerSomethingToo}', params).json()
     cast = [CastResult(cast['id'], extract_character(cast), cast['name']) for cast in credits_json['cast']]
     details = asyncio.run(get_cast_details(cast[:20]))
 
